@@ -1,0 +1,17 @@
+{
+  "description": "Seed data for the local AMC mock system. No real municipal portal is connected.",
+  "wards": [
+    { "name": "Navrangpura", "zone": "West Zone", "wardNumber": 12 },
+    { "name": "Maninagar", "zone": "South Zone", "wardNumber": 34 },
+    { "name": "Bodakdev", "zone": "West Zone", "wardNumber": 11 },
+    { "name": "Vastrapur", "zone": "West Zone", "wardNumber": 13 },
+    { "name": "Paldi", "zone": "Central Zone", "wardNumber": 21 }
+  ],
+  "departments": {
+    "pothole": "Roads & Infrastructure",
+    "garbage": "Solid Waste Management",
+    "streetlight": "Electrical Services",
+    "waterlogging": "Storm Water Drainage"
+  },
+  "tickets": []
+}
