@@ -5,6 +5,20 @@ const state = { selectedIssue: "", file: null, photoDataUrl: "", ticket: null, t
 const trace = $("trace");
 const acceptedTypes = ["image/jpeg", "image/png", "image/webp"];
 const maxImageBytes = 10 * 1024 * 1024;
+const translations = {
+  en: { localDemo: "Local demo", heroCopy: "Share a photo. We identify the issue, find the right ward and department, and give you one tracking ID to follow.", newComplaint: "New complaint", whatNeedsAttention: "What needs attention?", readyToHelp: "Ready to help", orTellUs: "or tell us what you saw", judgeSamples: "Judge quick demos", judgeSamplesHint: "Try a complete flow without an API key or photo.", pothole: "Pothole", roadSurfaceDamage: "Road surface damage", garbage: "Garbage", overflowMissedPickup: "Overflow or missed pickup", streetlight: "Streetlight", brokenUnsafeLight: "Broken or unsafe light", waterlogging: "Water logging", standingWater: "Standing water or flooding" },
+  hi: { localDemo: "स्थानीय डेमो", heroCopy: "फोटो साझा करें। हम समस्या पहचानकर सही वार्ड और विभाग चुनते हैं और एक ट्रैकिंग आईडी देते हैं।", newComplaint: "नई शिकायत", whatNeedsAttention: "किस समस्या पर ध्यान चाहिए?", readyToHelp: "मदद के लिए तैयार", orTellUs: "या बताएं कि आपने क्या देखा", judgeSamples: "जज के लिए त्वरित डेमो", judgeSamplesHint: "API कुंजी या फोटो के बिना पूरा फ्लो आज़माएं।", pothole: "गड्ढा", roadSurfaceDamage: "सड़क की सतह खराब", garbage: "कचरा", overflowMissedPickup: "कचरा भरा या उठाया नहीं गया", streetlight: "स्ट्रीट लाइट", brokenUnsafeLight: "टूटी या असुरक्षित लाइट", waterlogging: "जलभराव", standingWater: "खड़ा पानी या बाढ़" },
+  gu: { localDemo: "સ્થાનિક ડેમો", heroCopy: "ફોટો શેર કરો. અમે સમસ્યા ઓળખી યોગ્ય વોર્ડ અને વિભાગ શોધી એક ટ્રેકિંગ ID આપીએ છીએ.", newComplaint: "નવી ફરિયાદ", whatNeedsAttention: "કઈ સમસ્યા પર ધ્યાન જોઈએ?", readyToHelp: "મદદ માટે તૈયાર", orTellUs: "અથવા તમે શું જોયું તે જણાવો", judgeSamples: "જજ માટે ઝડપી ડેમો", judgeSamplesHint: "API કી અથવા ફોટા વિના સંપૂર્ણ ફ્લો અજમાવો.", pothole: "ખાડો", roadSurfaceDamage: "રસ્તાની સપતિનું નુકસાન", garbage: "કચરો", overflowMissedPickup: "કચરો ભરાયો અથવા ઉઠાવવામાં આવ્યો નથી", streetlight: "સ્ટ્રીટલાઇટ", brokenUnsafeLight: "તૂટેલી અથવા અસુરક્ષિત લાઇટ", waterlogging: "પાણી ભરાવું", standingWater: "ઊભું પાણી અથવા પૂર" }
+};
+function applyLanguage(language) {
+  const selected = translations[language] || translations.en;
+  document.documentElement.lang = language === "hi" ? "hi" : language === "gu" ? "gu" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const value = selected[element.dataset.i18n] || translations.en[element.dataset.i18n];
+    if (value) element.textContent = value;
+  });
+  localStorage.setItem("nagarsetu-language", language);
+}
 
 function activateView(view) {
   const report = view !== "track";
@@ -492,6 +506,12 @@ $("locateBtn").addEventListener("click", () => {
   }, { timeout: 5000 });
 });
 $("reportBtn").addEventListener("click", fileComplaint);
+document.querySelectorAll("[data-sample-issue]").forEach((button) => button.addEventListener("click", () => {
+  setIssue(button.dataset.sampleIssue);
+  selectArea(WARDS.find((ward) => ward.name === button.dataset.sampleArea) || WARDS[0]);
+  showAlert("Sample loaded. Press Identify & file complaint to run the full agent flow.", "info");
+  $("reportBtn").scrollIntoView({ behavior: "smooth", block: "center" });
+}));
 $("copyId").addEventListener("click", async () => { await navigator.clipboard?.writeText(state.ticket.id); $("copyId").textContent = "Copied"; });
 $("downloadReport").addEventListener("click", () => downloadReport());
 $("newReport").addEventListener("click", () => {
@@ -534,6 +554,9 @@ function handleHashChange() {
 document.querySelectorAll(".nav-link").forEach((tab) => tab.addEventListener("click", () => requestAnimationFrame(handleHashChange)));
 window.addEventListener("hashchange", handleHashChange);
 syncViewFromHash();
+$("languageSelect").value = localStorage.getItem("nagarsetu-language") || "en";
+applyLanguage($("languageSelect").value);
+$("languageSelect").addEventListener("change", (event) => applyLanguage(event.target.value));
 $("speakBtn").addEventListener("click", async () => {
   if (!state.ticket) return;
   try {

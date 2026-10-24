@@ -13,14 +13,14 @@
     <header class="topbar">
       <a class="brand" href="#" aria-label="NagarSetu home"><span class="brand-mark">NS</span><span><strong>NagarSetu</strong><small>civic service desk</small></span></a>
       <nav class="tab-nav" aria-label="Primary navigation" role="tablist"><a class="nav-link active" id="reportTab" href="#report" role="tab" aria-controls="reportView" aria-selected="true">Report an issue</a><a class="nav-link" id="trackTab" href="#status" role="tab" aria-controls="trackView" aria-selected="false">Track complaint</a></nav>
-      <div class="header-actions"><span class="secure-badge"><i></i> Local demo</span><button class="icon-button" aria-label="Open help">?</button></div>
+      <div class="header-actions"><span class="secure-badge"><i></i> <span data-i18n="localDemo">Local demo</span></span><label class="language-picker" for="languageSelect"><span class="sr-only">Language</span><select id="languageSelect" aria-label="Choose language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="gu">ગુજરાતી</option></select></label><button class="icon-button" aria-label="Open help">?</button></div>
     </header>
 
     <section class="hero report-only">
       <div class="hero-copy">
         <div class="eyebrow accent">A simpler civic service desk <span class="spark">✦</span></div>
         <h1>Turn a street problem into a <em>clear next step.</em></h1>
-        <p>Share a photo. We identify the issue, find the right ward and department, and give you one tracking ID to follow.</p>
+        <p data-i18n="heroCopy">Share a photo. We identify the issue, find the right ward and department, and give you one tracking ID to follow.</p>
         <div class="hero-proof"><span><b>01</b> Photo-first</span><span><b>02</b> Smart routing</span><span><b>03</b> Trackable</span></div>
       </div>
       <div class="hero-illustration" aria-hidden="true"><div class="sun"></div><div class="city city-back"></div><div class="city city-front"></div><div class="road"></div><div class="person"></div><div class="sign">REPORT<br><strong>HERE</strong></div></div>
@@ -30,18 +30,19 @@
     <div class="section-kicker" id="report"><span>01</span><strong>Start a new report</strong><i></i><small>Usually takes less than a minute</small></div>
     <div class="dashboard-grid">
       <section class="card report-card">
-        <div class="card-head"><div><div class="eyebrow">New complaint</div><h2>What needs attention?</h2></div><span class="ready-state"><i></i> Ready to help</span></div>
+        <div class="card-head"><div><div class="eyebrow" data-i18n="newComplaint">New complaint</div><h2 data-i18n="whatNeedsAttention">What needs attention?</h2></div><span class="ready-state"><i></i> <span data-i18n="readyToHelp">Ready to help</span></span></div>
         <div class="upload-zone" id="dropZone" role="button" tabindex="0" aria-describedby="uploadHint">
           <input id="photo" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Upload an issue photo">
           <div class="preview-wrap hidden" id="previewWrap"><img id="preview" alt="Selected civic issue preview"><button id="removePhoto" class="remove-photo" type="button" aria-label="Remove selected photo">×</button></div>
           <div class="upload-content" id="uploadContent"><span class="upload-icon">↑</span><strong>Drop a photo here, or <u>browse</u></strong><small id="uploadHint">JPG or PNG · Location metadata is used when available</small></div>
         </div>
-        <div class="or-rule"><span>or tell us what you saw</span></div>
+        <div class="or-rule"><span data-i18n="orTellUs">or tell us what you saw</span></div>
+        <div class="sample-strip"><div><strong data-i18n="judgeSamples">Judge quick demos</strong><small data-i18n="judgeSamplesHint">Try a complete flow without an API key or photo.</small></div><div class="sample-actions"><button type="button" data-sample-issue="pothole" data-sample-area="Navrangpura">Road damage</button><button type="button" data-sample-issue="garbage" data-sample-area="Maninagar">Garbage overflow</button><button type="button" data-sample-issue="waterlogging" data-sample-area="Paldi">Water logging</button></div></div>
         <div class="issue-grid" id="issueChips" role="group" aria-label="Issue category">
-          <button class="issue-card" data-issue="pothole"><span class="issue-symbol pothole-symbol">⌁</span><span><strong>Pothole</strong><small>Road surface damage</small></span><b>↗</b></button>
-          <button class="issue-card" data-issue="garbage"><span class="issue-symbol garbage-symbol">▣</span><span><strong>Garbage</strong><small>Overflow or missed pickup</small></span><b>↗</b></button>
-          <button class="issue-card" data-issue="streetlight"><span class="issue-symbol light-symbol">✦</span><span><strong>Streetlight</strong><small>Broken or unsafe light</small></span><b>↗</b></button>
-          <button class="issue-card" data-issue="waterlogging"><span class="issue-symbol water-symbol">≈</span><span><strong>Water logging</strong><small>Standing water or flooding</small></span><b>↗</b></button>
+          <button class="issue-card" data-issue="pothole"><span class="issue-symbol pothole-symbol">⌁</span><span><strong data-i18n="pothole">Pothole</strong><small data-i18n="roadSurfaceDamage">Road surface damage</small></span><b>↗</b></button>
+          <button class="issue-card" data-issue="garbage"><span class="issue-symbol garbage-symbol">▣</span><span><strong data-i18n="garbage">Garbage</strong><small data-i18n="overflowMissedPickup">Overflow or missed pickup</small></span><b>↗</b></button>
+          <button class="issue-card" data-issue="streetlight"><span class="issue-symbol light-symbol">✦</span><span><strong data-i18n="streetlight">Streetlight</strong><small data-i18n="brokenUnsafeLight">Broken or unsafe light</small></span><b>↗</b></button>
+          <button class="issue-card" data-issue="waterlogging"><span class="issue-symbol water-symbol">≈</span><span><strong data-i18n="waterlogging">Water logging</strong><small data-i18n="standingWater">Standing water or flooding</small></span><b>↗</b></button>
         </div>
         <div class="location-head"><label for="area">Where is it?</label><span>Required to route your report</span></div>
         <div class="location-input autocomplete-field"><span>⌖</span><input id="area" class="text-input" placeholder="Type an area or nearby landmark" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="areaSuggestions" aria-expanded="false"><button id="locateBtn" type="button" title="Use device location">Pin my location</button><div class="autocomplete-menu hidden" id="areaSuggestions" role="listbox" aria-label="Area suggestions"></div></div>
